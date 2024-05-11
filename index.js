@@ -6,6 +6,10 @@ const app = express()
 const session = require("express-session")
 const cookie_parser = require("cookie-parser")
 
+// Utilities for handling errors (async included)
+const ExpressError = require("./utils/express_error")
+const catchAsync = require("./utils/catchAsync")
+
 // connect-flash is used to store temporary messages that are cleared after being displayed to the user. These messages are often used to display notifications to the user, such as success messages after form submissions, error messages, or informational messages. The messages are stored in the session, so they are only available for the duration of the session.
 const flash = require('connect-flash')
 
@@ -54,6 +58,18 @@ app.use(express.urlencoded({extended: true}))
 
 app.get("/", (req, res) => {
     res.send("Working!")
+})
+
+
+// * Error Handlers
+app.all("*", (req, res, next) => {
+    next(new ExpressError("Page Not Found", 404))
+})
+
+app.use((err, req, res, next) => {
+    const {statusCode = 500} = err
+    if (!err.message) err.message = "Something Went Wrong!"
+    res.status(statusCode).send(`Handled Error: ${err.message}  (Status Code: ${statusCode})`)
 })
 
 port = 3000
