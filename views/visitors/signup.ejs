@@ -1,0 +1,40 @@
+<%layout("layouts/boilerplate")%>
+<link rel="stylesheet" href="/stylesheets/signup.css">
+<div class="form-container">
+    <form action="/signup" class="needs-validation" novalidate method="POST">
+        <div class="mb-3">
+            <label class="form-label" for="username">Username</label>
+            <input class="form-control" type="text" id="username" name="username" required>
+            <div class="invalid-feedback">
+                Please enter a valid username!
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" type="email" id="email" name="email" required>
+            <div class="invalid-feedback">
+                Please enter a valid email!
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-control" type="password" id="password" name="password" required>
+            <div class="invalid-feedback">
+                Please enter a password!
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <button class="btn btn-success">Submit</button>
+    </form>
+</div>

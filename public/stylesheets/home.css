@@ -1,6 +1,6 @@
 .card-container {
     display: flex;
-    height: 80vh;
+    height: 100vh;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
@@ -13,6 +13,7 @@
     /*outline: 2px solid #FD6C9D;*/
     background-color: rgba(0, 0, 0, 0.0);
     backdrop-filter: blur(50px);
+    height: 40rem;
 }
 
 .card-body {
