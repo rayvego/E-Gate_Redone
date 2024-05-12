@@ -44,6 +44,11 @@ app.set("view engine", "ejs")
 const ejsMate = require("ejs-mate")
 app.engine("ejs", ejsMate)
 
+// Importing routes
+const visitorRoutes = require("./routes/visitors")
+const residentRoutes = require("./routes/residents")
+const securityRoutes = require("./routes/security")
+
 
 // * Setting up mongoose connection
 const mongoose = require('mongoose')
@@ -69,11 +74,13 @@ app.use(express.static(path.join(__dirname, "public")))
 
 
 // * Routes
+app.use("/visitor", visitorRoutes)
+app.use("/resident", residentRoutes)
+app.use("/security", securityRoutes)
 
 app.get("/", (req, res) => {
     res.render("home")
 })
-
 
 // * Error Handlers
 
