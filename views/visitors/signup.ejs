@@ -1,32 +1,22 @@
 <%layout("layouts/boilerplate")%>
 <link rel="stylesheet" href="/stylesheets/signup.css">
+<div class="background"></div>
+<div class="header"><h3>Visitor Sign-Up</h3></div>
 <div class="form-container">
-    <form action="/signup" class="needs-validation" novalidate method="POST">
-        <div class="mb-3">
-            <label class="form-label" for="username">Username</label>
-            <input class="form-control" type="text" id="username" name="username" required>
+    <form action="/visitor/signup" method="POST" class="row g-3 needs-validation" novalidate>
+        <div class="col-12">
+            <label for="name" class="form-label">Name: </label>
+            <input type="text" class="form-control" id="name" name="visitor[name]" required>
             <div class="invalid-feedback">
-                Please enter a valid username!
+                Please enter a name!
             </div>
             <div class="valid-feedback">
                 Looks good!
             </div>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-control" type="email" id="email" name="email" required>
-            <div class="invalid-feedback">
-                Please enter a valid email!
-            </div>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label" for="password">Password</label>
-            <input class="form-control" type="password" id="password" name="password" required>
+        <div class="col-md-6">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="password" name="visitor[password]" required>
             <div class="invalid-feedback">
                 Please enter a password!
             </div>
@@ -34,7 +24,38 @@
                 Looks good!
             </div>
         </div>
-
-        <button class="btn btn-success">Submit</button>
+        <div class="col-md-6">
+            <label for="phone_number" class="form-label">Phone Number:</label>
+            <input type="text" class="form-control" id="phone_number" name="visitor[phone_number]" required>
+            <div class="invalid-feedback">
+                Please enter a valid phone number!
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="vehicle_number" class="form-label">Vehicle Number:</label>
+            <input type="text" class="form-control" id="vehicle_number" name="visitor[vehicle_number]" placeholder="AB12AB1234" required>
+            <div class="invalid-feedback">
+                Please enter a valid vehicle number!
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="tenure" class="form-label">Tenure (in hours):</label>
+            <input type="number" class="form-control" id="tenure" name="visitor[tenure]" required>
+            <div class="invalid-feedback">
+                Please enter your tentative tenure!
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn">Sign in</button>
+        </div>
     </form>
 </div>
