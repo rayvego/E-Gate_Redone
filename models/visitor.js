@@ -6,6 +6,10 @@ const visitorSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    password: {
+        type: String,
+        required: true
+    },
     phone_number: { // * filled on form
         type: Number,
         required: true,
@@ -31,6 +35,7 @@ const visitorSchema = new mongoose.Schema({
     scan_count: { // system generated
         type: Number,
         required: true,
+        default: 0,
     },
     gate_number: { // taken from security login session
         type: Number,
