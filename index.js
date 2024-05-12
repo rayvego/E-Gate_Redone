@@ -65,17 +65,18 @@ db.once("open", () => {
 // In simpler words--allows Express application to read and access form data sent from the client side in a way that's easy to work with in your JavaScript code.
 app.use(express.urlencoded({extended: true}))
 
-// app.use(express.static(path.join(__dirname, "public")))
+app.use(express.static(path.join(__dirname, "public")))
 
 
 // * Routes
 
 app.get("/", (req, res) => {
-    res.send("Working!")
+    res.render("home")
 })
 
 
 // * Error Handlers
+
 app.all("*", (req, res, next) => {
     next(new ExpressError("Page Not Found", 404))
 })
@@ -88,5 +89,5 @@ app.use((err, req, res, next) => {
 
 port = 3000
 app.listen(port, () => {
-    console.log(`Application runnning on port ${port} ✅`)
+    console.log(`Application running on port ${port} ✅`)
 })
