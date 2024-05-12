@@ -4,6 +4,18 @@ const app = express()
 
 // Applications for handling sessions and cookies.
 const session = require("express-session")
+sessionConfig = {
+    secret: "shouldbeabettersecret",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // week
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true
+    }
+}
+app.use(session(sessionConfig))
+
 const cookie_parser = require("cookie-parser")
 
 // Utilities for handling errors (async included)
@@ -52,6 +64,8 @@ db.once("open", () => {
 // The extended: true option allows for the parsing of complex objects and arrays.
 // In simpler words--allows Express application to read and access form data sent from the client side in a way that's easy to work with in your JavaScript code.
 app.use(express.urlencoded({extended: true}))
+
+// app.use(express.static(path.join(__dirname, "public")))
 
 
 // * Routes
