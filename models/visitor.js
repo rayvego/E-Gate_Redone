@@ -8,7 +8,7 @@ const visitorSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     phone_number: { // * filled on form
         type: Number,
@@ -28,9 +28,6 @@ const visitorSchema = new mongoose.Schema({
     },
     tenure: { // system generated, tenure = exit_time - entry_time
         type: Date,
-    },
-    qr_code: { // system generated
-        type: String,
     },
     scan_count: { // system generated
         type: Number,
