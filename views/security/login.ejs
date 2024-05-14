@@ -1,10 +1,11 @@
 <%layout("layouts/boilerplate")%>
-<link rel="stylesheet" href="/stylesheets/signup.css">
+<link rel="stylesheet" href="/stylesheets/security_login.css">
+<div class="header"><h3>Security Log-In</h3></div>
 <div class="form-container">
-    <form action="/signup" class="needs-validation" novalidate method="POST">
+    <form action="/security/login" class="needs-validation" novalidate method="POST">
         <div class="mb-3">
-            <label class="form-label" for="id_security">Name</label>
-            <input class="form-control" type="text" id="id_security" name="id_security" required>
+            <label class="form-label" for="id_security">SIC</label>
+            <input class="form-control" type="text" id="id_security" name="security[sic]" required>
             <div class="invalid-feedback">
                 Please enter a valid username!
             </div>
@@ -14,19 +15,8 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label" for="gate_number">Gate Number</label>
-            <input class="form-control" type="number" id="gate_number" name="gate_number" required>
-            <div class="invalid-feedback">
-                Please enter a valid gate number!
-            </div>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-
-        <div class="mb-3">
             <label class="form-label" for="password">Password</label>
-            <input class="form-control" type="password" id="password" name="password" required>
+            <input class="form-control" type="password" id="password" name="security[password]" required>
             <div class="invalid-feedback">
                 Please enter a password!
             </div>
@@ -35,6 +25,16 @@
             </div>
         </div>
 
-        <button class="btn btn-success">Submit</button>
+        <div class="mb-3">
+            <label class="form-label" for="gate_number">Gate Number</label>
+            <input class="form-control" type="number" id="gate_number" name=security[gate_number]" required>
+            <div class="invalid-feedback">
+                Please enter a valid gate number!
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <button class="btn">Submit</button>
     </form>
 </div>

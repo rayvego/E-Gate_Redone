@@ -25,6 +25,8 @@ const catchAsync = require("./utils/catchAsync")
 // connect-flash is used to store temporary messages that are cleared after being displayed to the user. These messages are often used to display notifications to the user, such as success messages after form submissions, error messages, or informational messages. The messages are stored in the session, so they are only available for the duration of the session.
 const flash = require('connect-flash')
 
+const bcrypt = require("bcrypt")
+
 // Joi is a library that is used for server-side form verification, schema description and data validation. It allows you to create blueprints or schemas for JavaScript objects to ensure validation of key information.
 const Joi = require("joi")
 // TODO: const {..., ...} = require("./joi_verification")
@@ -59,6 +61,7 @@ db.once("open", () => {
     console.log("Mongo connection successful ✅")
 })
 // TODO: import schema files
+const {Security} = require("./models/security")
 
 
 // * Defining middleware functions
@@ -71,7 +74,6 @@ db.once("open", () => {
 app.use(express.urlencoded({extended: true}))
 
 app.use(express.static(path.join(__dirname, "public")))
-
 
 // * Routes
 app.use("/visitor", visitorRoutes)
