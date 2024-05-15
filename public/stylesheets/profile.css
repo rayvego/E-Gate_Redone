@@ -23,11 +23,15 @@
     border-radius: 1rem;
     padding: 2rem;
     backdrop-filter: blur(50px);
-    width: 70%
+    width: 70%;
+}
+
+.qrcode {
+    /*border: 2px solid red;*/
 }
 
 
-img {
+.profile {
     scale: 70%;
 }
 
