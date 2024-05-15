@@ -9,6 +9,14 @@
     border-radius: 20px;
 }
 
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+}
+
 .card {
     /*outline: 2px solid #FD6C9D;*/
     background-color: rgba(0, 0, 0, 0.0);

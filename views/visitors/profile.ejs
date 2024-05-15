@@ -10,13 +10,13 @@
             <div class="card">
                 <img src="/images/profile.png" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title"><%= visitor_user.name%></h5>
-                    <p class="card-text">Phone Number: <%=visitor_user.phone_number%></p>
+                    <h5 class="card-title"><%= visitor.name%></h5>
+                    <p class="card-text">Phone Number: <%=visitor.phone_number%></p>
                 </div>
             </div>
             <div class="form-container">
 
-            <form action="/visitor/<%=visitor_user._id%>/profile" method="POST" class="row g-3 needs-validation" novalidate>
+            <form action="/visitor/<%=visitor._id%>/profile" method="POST" class="row g-3 needs-validation" novalidate>
                 <div class="col-md-6">
                     <label for="vehicle_number" class="form-label">Vehicle number: </label>
                     <input type="text" class="form-control" id="vehicle_number" name="visitor[vehicle_number]" placeholder="AB12AB1234" required>

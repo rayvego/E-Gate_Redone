@@ -5,6 +5,7 @@ const Visitor_Detail = require("../models/visitor_details")
 const ExpressError = require("../utils/express_error")
 const router = express.Router({mergeParams: true})
 const bcrypt = require("bcrypt")
+const catchAsync = require("../utils/catchAsync")
 
 const validateVisitorDetails = (req, res, next) => {
     const {error} = visitorDetailsSchema.validate(req.body)
@@ -38,20 +39,39 @@ router.post("/signup", validateVisitorDetails, async (req, res) => {
     console.log(visitor)
     const hashed_password = await bcrypt.hash(password, 12)
     const visitor_user = new Visitor_Detail({name, password: hashed_password, phone_number})
-    console.log(visitor_user)
+    // console.log(visitor_user)
     await visitor_user.save()
     res.redirect(`/visitor/${visitor_user._id}/profile`)
 })
 
-router.post("/login", (req, res) => {
-    res.send("HI")
+router.get("/login", (req, res) => {
+    res.render("visitors/login")
+})
+
+router.post("/login", async (req, res) => {
+    const {visitor} = req.body
+    const {phone_number, password} = visitor
+    const visitor_user = await Visitor_Detail.findOne({phone_number})
+
+    if (visitor_user) {
+        // console.log(visitor_user);
+        const validVisitor = await bcrypt.compare(password, visitor_user.password)
+        if (validVisitor) {
+            res.redirect(`/visitor/${visitor_user._id}/profile`)
+        } else {
+            res.redirect("/visitor/login")
+        }
+    } else {
+        console.log('User not found')
+        res.redirect("/visitor/login")
+    }
 })
 
 router.get("/:id/profile", async (req, res) => {
-    const {id} = req.body
-    const visitor_user = await Visitor_Detail.findOne({id})
-    // console.log(visitor_user)
-    res.render("visitors/profile", {visitor_user})
+    const {id} = req.params
+    const visitor = await Visitor_Detail.findOne({_id: id})
+    // console.log(visitor)
+    res.render("visitors/profile", {visitor})
 })
 
 router.post("/:id/profile", validateVisitor, async (req, res) => {
