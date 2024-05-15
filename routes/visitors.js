@@ -8,7 +8,6 @@ const bcrypt = require("bcrypt")
 const catchAsync = require("../utils/catchAsync")
 const qr = require("qrcode")
 
-
 const validateVisitorDetails = (req, res, next) => {
     const {error} = visitorDetailsSchema.validate(req.body)
     if (error) {
@@ -78,11 +77,11 @@ router.get("/:id/profile", async (req, res) => {
 
 router.post("/:id/profile", validateVisitor, async (req, res) => {
     const {id} = req.params
-    const qrcode = qr.toDataURL(id)
-    const visitor = await Visitor_Detail.findOne({_id: id})
-    visitor.qr_code.push(qrcode)
+    const qrcode = await qr.toDataURL(id)
+    const visitor = await Visitor_Detail.findOneAndUpdate({_id: id}, {qr_code: qrcode})
+    console.log(visitor.qr_code)
     await visitor.save()
-    res.redirect(`/visitor/${visitor_user._id}/profile`)
+    res.redirect(`/visitor/${visitor._id}/profile`)
 })
 
 module.exports = router
