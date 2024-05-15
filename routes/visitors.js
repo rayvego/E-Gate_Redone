@@ -6,6 +6,8 @@ const ExpressError = require("../utils/express_error")
 const router = express.Router({mergeParams: true})
 const bcrypt = require("bcrypt")
 const catchAsync = require("../utils/catchAsync")
+const qr = require("qrcode")
+
 
 const validateVisitorDetails = (req, res, next) => {
     const {error} = visitorDetailsSchema.validate(req.body)
@@ -75,7 +77,12 @@ router.get("/:id/profile", async (req, res) => {
 })
 
 router.post("/:id/profile", validateVisitor, async (req, res) => {
-    res.send("HI")
+    const {id} = req.params
+    const qrcode = qr.toDataURL(id)
+    const visitor = await Visitor_Detail.findOne({_id: id})
+    visitor.qr_code.push(qrcode)
+    await visitor.save()
+    res.redirect(`/visitor/${visitor_user._id}/profile`)
 })
 
 module.exports = router
