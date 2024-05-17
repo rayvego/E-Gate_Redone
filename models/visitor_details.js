@@ -14,9 +14,13 @@ const visitorDetailsSchema = new mongoose.Schema({
         required: true,
         length: 10
     },
-    qr_code: {
-        type: String,
-    }
+    temp_data: {
+        vehicle_number: String,
+        reason: String,
+        concerned_with: String,
+        tenure: Number,
+    },
+    qrcode: String
 })
 
 Visitor_Detail = mongoose.model("Visitor_Detail", visitorDetailsSchema)

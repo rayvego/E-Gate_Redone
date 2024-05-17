@@ -1,0 +1,132 @@
+<%layout("layouts/boilerplate")%>
+<link rel="stylesheet" href="/stylesheets/verify.css">
+
+<div class="content">
+    <% if(notFound) { %>
+        <div class="notFound">
+            <div class="header">
+                <h2>User Not Found!</h2>
+            </div>
+            <div class="close">
+                <img src="/images/close.png" alt="">
+            </div>
+        </div>
+    <%} else {%>
+    <div class="header">
+        <h3>Information about the Person Entering the Facility</h3>
+    </div>
+    <div class="form-container">
+        <form action="/security/verify" class="needs-validation" novalidate method="POST">
+            <%if (isResident) {%>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="huh">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="id_security">SIC</label>
+                <input class="form-control" type="text" id="id_security" name="security[sic]" required>
+                <div class="invalid-feedback">
+                    Please enter a valid username!
+                </div>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <%} else {%>
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Visitor's Name</span>
+                        <input type="text" class="form-control" id="basic-url" name="name" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.name%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Phone number:</span>
+                        <input type="text" class="form-control" id="basic-url" name="phone_number" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.phone_number%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">SIC</span>
+                        <input type="text" class="form-control" id="basic-url" name="sic" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=security_user_sic%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Gate Number</span>
+                        <input type="text" class="form-control" id="basic-url" name="gate_number" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=gate_number%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Vehicle Number</span>
+                        <input type="text" class="form-control" id="basic-url" name="vehicle_number" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.temp_data.vehicle_number%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Concerned With</span>
+                        <input type="text" class="form-control" id="basic-url" name="concerned_with" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.temp_data.concerned_with%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Reason</span>
+                        <input type="text" class="form-control" id="basic-url" name="reason" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.temp_data.reason%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Tenure (in hours)</span>
+                        <input type="text" class="form-control" id="basic-url" name="tenure" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.temp_data.tenure%>">
+                    </div>
+                </div>
+
+                <div class="choice">
+                    <input type="radio" class="btn-check" name="isApproved" id="success-outlined" autocomplete="off" checked>
+                    <label class="btn btn-outline-success" for="success-outlined">Allow</label>
+                    <input type="radio" class="btn-check" name="isApproved" id="danger-outlined" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="danger-outlined">Reject</label>
+                </div>
+
+                <div class="centered">
+                    <div>
+                        <button type="submit" class="btn-my btn">Submit</button>
+                    </div>
+                </div>
+            <%}%>
+        </form>
+    </div>
+    <%}%>
+</div>

@@ -8,14 +8,14 @@
     </div>
         <div class="inner-container">
             <div class="card">
-                <img src="/images/profile.png" class="card-img-top profile" alt="...">
+                <img src="/images/profile.png" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><%= visitor.name%></h5>
                     <p class="card-text">Phone Number: <%=visitor.phone_number%></p>
                 </div>
             </div>
             <div class="form-container">
-            <%if (!visitor.qr_code) {%>
+            <%if (!visitor.qrcode) {%>
 
             <form action="/visitor/<%=visitor._id%>/profile" method="POST" class="row g-3 needs-validation" novalidate>
                 <div class="col-md-6">
@@ -65,7 +65,7 @@
 
             <%} else {%>
                 <div class="qrcode">
-                    <img src="<%=visitor.qr_code%>" alt="qr_code">
+                    <img src="<%=visitor.qrcode%>" alt="qr_code">
                 </div>
             <%}%>
             </div>

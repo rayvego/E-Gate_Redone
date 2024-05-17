@@ -6,10 +6,6 @@ const visitorSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    password: {
-        type: String,
-        required: true,
-    },
     phone_number: { // * filled on form
         type: Number,
         required: true,
@@ -22,11 +18,12 @@ const visitorSchema = new mongoose.Schema({
     },
     entry_time: { // system generated
         type: Date,
+        default: Date.now()
     },
-    exit_time: { // * filled on form
+    exit_time: { // system generated, tenure = exit_time - entry_time
         type: Date,
     },
-    tenure: { // system generated, tenure = exit_time - entry_time
+    tenure: { // * filled on form
         type: Date,
     },
     scan_count: { // system generated

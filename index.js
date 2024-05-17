@@ -75,6 +75,12 @@ app.use(express.urlencoded({extended: true}))
 
 app.use(express.static(path.join(__dirname, "public")))
 
+app.use((req, res, next) => {
+    res.locals.security_user_sic = req.session.security_user_sic
+    res.locals.gate_number = req.session.gate_number
+    next()
+})
+
 // * Routes
 app.use("/visitor", visitorRoutes)
 app.use("/resident", residentRoutes)
