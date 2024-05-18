@@ -1,0 +1,34 @@
+<%layout("layouts/boilerplate")%>
+<link rel="stylesheet" href="/stylesheets/visitor_login.css">
+
+<div class="background"></div>
+<div class="header"><h3>Resident Log-In</h3></div>
+<div class="form-container">
+    <form action="/resident/login" method="POST" class="row g-3 needs-validation" novalidate>
+        <div class="col-md-6">
+            <label for="phone_number" class="form-label">Identification Code:</label>
+            <input type="text" class="form-control" id="phone_number" name="resident[ic]" required>
+            <div class="invalid-feedback">
+                Please enter a valid identification code!
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="password" name="resident[password]" required>
+            <div class="invalid-feedback">
+                Please enter a password!
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn">Log In</button>
+        </div>
+    </form>
+</div>

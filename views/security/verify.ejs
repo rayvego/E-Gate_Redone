@@ -16,47 +16,91 @@
         <h3>Information about the Person Entering the Facility</h3>
     </div>
     <div class="form-container">
-        <form action="/security/verify" class="needs-validation" novalidate method="POST">
-            <%if (isResident) {%>
-            <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="huh">
+        <%if (isResident) {%>
+            <form action="/security/verify/resident" class="needs-validation" novalidate method="POST">
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Resident's Name</span>
+                        <input type="text" class="form-control" id="basic-url" name="name" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.name%>">
+                    </div>
                 </div>
-            </div>
 
-            <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Identification Code</span>
+                        <input type="text" class="form-control" id="basic-url" name="ic" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.ic%>">
+                    </div>
                 </div>
-            </div>
 
-            <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Phone number:</span>
+                        <input type="text" class="form-control" id="basic-url" name="phone_number" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.phone_number%>">
+                    </div>
                 </div>
-            </div>
 
-            <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Email:</span>
+                        <input type="text" class="form-control" id="basic-url" name="email" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.email%>">
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="id_security">SIC</label>
-                <input class="form-control" type="text" id="id_security" name="security[sic]" required>
-                <div class="invalid-feedback">
-                    Please enter a valid username!
-                </div>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
 
-            <%} else {%>
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Address:</span>
+                        <input type="text" class="form-control" id="basic-url" name="address" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.address%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">SIC</span>
+                        <input type="text" class="form-control" id="basic-url" name="sic" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=security_user_sic%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Gate Number</span>
+                        <input type="text" class="form-control" id="basic-url" name="gate_number" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=gate_number%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Vehicle Number</span>
+                        <input type="text" class="form-control" id="basic-url" name="vehicle_number" aria-describedby="basic-addon3 basic-addon4" placeholder="AB12AB1234">
+                    </div>
+                </div>
+
+                <div class="centered">
+                    <div class="button-container">
+                        <input type="radio" class="btn-check" name="isEntry" value="true" id="option5" autocomplete="off" checked>
+                        <label class="btn" for="option5">Entering</label>
+                        <input type="radio" class="btn-check" name="isEntry" value="false" id="option6" autocomplete="off">
+                        <label class="btn" for="option6">Exiting</label>
+                    </div>
+                </div>
+
+                <div class="centered">
+                    <div class="choice">
+                        <input type="radio" class="btn-check" name="isApproved" id="success-outlined" value="true" autocomplete="off">
+                        <label class="btn btn-outline-success" for="success-outlined">Allow</label>
+                        <input type="radio" class="btn-check" name="isApproved" id="danger-outlined" value="false" autocomplete="off" checked>
+                        <label class="btn btn-outline-danger" for="danger-outlined">Reject</label>
+                    </div>
+                </div>
+
+                <div class="centered">
+                    <div>
+                        <button type="submit" class="btn-my btn">Submit</button>
+                    </div>
+                </div>
+            </form>
+
+        <%} else {%>
+            <form action="/security/verify/visitor" class="needs-validation" novalidate method="POST">
                 <div class="mb-3 row">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon3">Visitor's Name</span>
@@ -114,9 +158,9 @@
                 </div>
 
                 <div class="choice">
-                    <input type="radio" class="btn-check" name="isApproved" id="success-outlined" autocomplete="off" checked>
+                    <input type="radio" class="btn-check" name="isApproved" id="success-outlined" value="true" autocomplete="off">
                     <label class="btn btn-outline-success" for="success-outlined">Allow</label>
-                    <input type="radio" class="btn-check" name="isApproved" id="danger-outlined" autocomplete="off">
+                    <input type="radio" class="btn-check" name="isApproved" id="danger-outlined" value="false" autocomplete="off" checked>
                     <label class="btn btn-outline-danger" for="danger-outlined">Reject</label>
                 </div>
 
@@ -125,8 +169,8 @@
                         <button type="submit" class="btn-my btn">Submit</button>
                     </div>
                 </div>
-            <%}%>
-        </form>
+            </form>
+        <%}%>
     </div>
     <%}%>
 </div>

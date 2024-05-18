@@ -17,3 +17,10 @@ module.exports.visitorSchema = Joi.object({
         reason: Joi.string().required(),
     }).required()
 })
+
+module.exports.residentDetailsSchema = Joi.object({
+    resident: Joi.object({
+        ic: Joi.number().required(),
+        password: Joi.string().required(),
+    }).required()
+})

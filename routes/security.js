@@ -70,35 +70,26 @@ router.get("/verify/:id", security_logged_in, catchAsync(async (req, res) => {
     }
 }))
 
-
-// router.post("/verify", security_logged_in, async (req, res) => {
-//     const {id, vehicle_number, isEntry, isApproved} = req.body
-//     const isResident = await Resident_Detail.findById(id)
-//     if (isResident) {
-//         const resident = new Resident({vehicle_number, isEntry, isApproved,
-//             resident_details: id,
-//             gate_number: req.session.gate_number,
-//             sic: req.session.security_user_sic}).populate("resident_details")
-//         res.render("security/verify")
-//     } else {
-//         const visitor = await Visitor_Details.findById(id)
-//         res.render("security/verify")
-//     }
-// })
-
-router.post("/verify", security_logged_in, async (req, res) => {
-    const {name, phone_number, sic, gate_number, vehicle_number, concerned_with, reason, tenure} = req.body
-    let {isApproved} = req.body
-    isApproved = "on" ? true : false
+router.post("/verify/visitor", security_logged_in, async (req, res) => {
+    const {name, isApproved, phone_number, sic, gate_number, vehicle_number, concerned_with, reason, tenure} = req.body
     const visitor = new Visitor({name, phone_number, sic, gate_number, vehicle_number, concerned_with, reason, tenure, isApproved})
     await visitor.save()
     console.log("New Visitor Saved!!")
     res.redirect("/security/scanner")
 })
 
+router.post("/verify/resident", security_logged_in, async (req, res) => {
+    const {name, ic, email, phone_number, address, sic, gate_number, isApproved, isEntry} = req.body
+    let {vehicle_number} = req.body
+    if (vehicle_number === "") vehicle_number = null
+    const resident = new Resident({name, ic, email, phone_number, address, sic, gate_number, vehicle_number, isApproved, isEntry})
+    await resident.save()
+    console.log("New Resident Saved!!")
+    res.redirect("/security/scanner")
+})
+
 router.get("/scanner",  security_logged_in, (req, res) => {
     res.render("security/scanner")
 })
-
 
 module.exports = router

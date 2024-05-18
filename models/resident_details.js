@@ -29,9 +29,8 @@ const residentDetailSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    qr_code: {
+    qrcode: {
         type: String,
-        required: true,
     },
 })
 

@@ -9,11 +9,7 @@
 }
 
 .choice {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 2rem;
+    margin: 1rem;
 }
 
 .btn-my {

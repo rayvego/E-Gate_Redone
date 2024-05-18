@@ -1,0 +1,34 @@
+<%layout("layouts/boilerplate")%>
+<link rel="stylesheet" href="/stylesheets/resident_profile.css">
+
+<div class="background"></div>
+<div class="profile-container">
+    <div class="header">
+        <h3>Resident Profile Page</h3>
+    </div>
+    <div class="inner-container">
+        <div class="card">
+            <img src="/images/profile.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><%= resident.name%></h5>
+                <p class="card-text">Identification Code: <%=resident.ic%></p>
+                <p class="card-text">Phone Number: <%=resident.phone_number%></p>
+                <p class="card-text">Email: <%=resident.email%></p>
+                <p class="card-text">Address: <%=resident.address%></p>
+            </div>
+        </div>
+        <div class="form-container">
+            <%if (!resident.qrcode) {%>
+
+                <form action="/resident/<%=resident._id%>/profile" method="POST">
+                    <button class="btn">Generate QR</button>
+                </form>
+
+            <%} else {%>
+            <div class="qrcode">
+                <img src="<%=resident.qrcode%>" alt="qr_code">
+            </div>
+            <%}%>
+        </div>
+    </div>
+</div>
