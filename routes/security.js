@@ -11,6 +11,7 @@ const catchAsync = require("../utils/catchAsync")
 
 const security_logged_in = (req, res, next) => {
     if(!req.session.security_user_sic) {
+        req.flash("error", "Please login first!")
         return res.redirect("/security/login")
     }
     next()
@@ -29,10 +30,15 @@ router.post("/login", async (req, res) => {
         console.log(security_user)
         req.session.security_user_sic = security_user.sic
         req.session.gate_number = gate_number
+        req.flash("success", "Welcome to E-Gate!)
         res.redirect("/security/home")
     } else {
         res.redirect("/security/login")
     }
+})
+
+router.get("/scanner",  security_logged_in, (req, res) => {
+    res.render("security/scanner")
 })
 
 router.get("/home",  security_logged_in,(req, res) => {
@@ -40,7 +46,8 @@ router.get("/home",  security_logged_in,(req, res) => {
 })
 
 router.get("/logout",  (req, res) => {
-    req.session.destroy()
+    req.session.security_user_sic = null
+    req.flash("success", "Logged out successfully!")
     res.redirect("/security/login")
 })
 
@@ -75,6 +82,7 @@ router.post("/verify/visitor", security_logged_in, async (req, res) => {
     const visitor = new Visitor({name, phone_number, sic, gate_number, vehicle_number, concerned_with, reason, tenure, isApproved})
     await visitor.save()
     console.log("New Visitor Saved!!")
+    req.flash("success", "Visitor Verified Successfully!")
     res.redirect("/security/scanner")
 })
 
@@ -85,11 +93,9 @@ router.post("/verify/resident", security_logged_in, async (req, res) => {
     const resident = new Resident({name, ic, email, phone_number, address, sic, gate_number, vehicle_number, isApproved, isEntry})
     await resident.save()
     console.log("New Resident Saved!!")
+    req.flash("success", "Resident Verified Successfully!")
     res.redirect("/security/scanner")
 })
 
-router.get("/scanner",  security_logged_in, (req, res) => {
-    res.render("security/scanner")
-})
 
 module.exports = router
