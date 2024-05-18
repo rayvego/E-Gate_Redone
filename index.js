@@ -24,6 +24,7 @@ const catchAsync = require("./utils/catchAsync")
 
 // connect-flash is used to store temporary messages that are cleared after being displayed to the user. These messages are often used to display notifications to the user, such as success messages after form submissions, error messages, or informational messages. The messages are stored in the session, so they are only available for the duration of the session.
 const flash = require('connect-flash')
+app.use(flash())
 
 const bcrypt = require("bcrypt")
 
@@ -78,6 +79,8 @@ app.use(express.static(path.join(__dirname, "public")))
 app.use((req, res, next) => {
     res.locals.security_user_sic = req.session.security_user_sic
     res.locals.gate_number = req.session.gate_number
+    res.locals.success = req.flash("success")
+    res.locals.error = req.flash("error")
     next()
 })
 

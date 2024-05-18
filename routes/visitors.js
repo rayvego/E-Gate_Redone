@@ -30,6 +30,14 @@ const validateVisitor = (req, res, next) => {
     }
 }
 
+const visitor_logged_in = (req, res, next) => {
+    if (!req.session.visitor_id) {
+        req.flash("error", "Please login first!")
+        return res.redirect("/visitor/login")
+    }
+    next()
+}
+
 router.get("/signup", (req, res) => {
     res.render("visitors/signup")
 })
@@ -42,6 +50,8 @@ router.post("/signup", validateVisitorDetails, async (req, res) => {
     const visitor_user = new Visitor_Detail({name, password: hashed_password, phone_number})
     // console.log(visitor_user)
     await visitor_user.save()
+    req.session.visitor_id = visitor_user._id
+    req.flash("success", "Welcome to E-Gate!")
     res.redirect(`/visitor/${visitor_user._id}/profile`)
 })
 
@@ -58,24 +68,28 @@ router.post("/login", async (req, res) => {
         // console.log(visitor_user);
         const validVisitor = await bcrypt.compare(password, visitor_user.password)
         if (validVisitor) {
+            req.session.visitor_id = visitor_user._id
+            req.flash("success", "Welcome back!")
             res.redirect(`/visitor/${visitor_user._id}/profile`)
         } else {
+            req.flash("error", "Invalid Phone Number or Password!")
             res.redirect("/visitor/login")
         }
     } else {
         console.log('User not found')
+        req.flash("error", "Invalid Phone Number or Password!")
         res.redirect("/visitor/login")
     }
 })
 
-router.get("/:id/profile", async (req, res) => {
+router.get("/:id/profile", visitor_logged_in, catchAsync (async (req, res) => {
     const {id} = req.params
     const visitor = await Visitor_Detail.findById(id)
     // console.log(visitor)
     res.render("visitors/profile", {visitor})
-})
+}))
 
-router.post("/:id/profile", async (req, res) => { // Temporarily remove validateVisitor
+router.post("/:id/profile", visitor_logged_in, validateVisitor, async (req, res) => { // Temporarily remove validateVisitor
     const { id } = req.params
     const { visitor: visitor_ } = req.body // ! OMFGGGG ALWAYS CHECK HOW HAVE U PASSED THE INFO FROM THE FORM!!!!!
     const { vehicle_number, reason, concerned_with, tenure } = visitor_
@@ -85,29 +99,14 @@ router.post("/:id/profile", async (req, res) => { // Temporarily remove validate
     const qrcode = await qr.toDataURL(id)
     visitor.qrcode = qrcode
     await visitor.save()
+    req.flash("success", "QR Code Generated Successfully!")
     res.redirect(`/visitor/${visitor._id}/profile`)
 })
 
-// router.post("/:id/profile", validateVisitor, async (req, res) => {
-//     const {id} = req.params
-//     let {visitor: visitor_user} = req.body
-//     const info = {id,
-//         phone_number: visitor_user.phone_number,
-//         reason: visitor_user.reason,
-//         concerned_with: visitor_user.concerned_with,
-//         tenure: visitor_user.tenure
-//     }
-//     const jsonString = JSON.stringify(info)
-//     let real_qrcode = await new Promise((resolve, reject) => {
-//         qr.toDataURL(jsonString, function (err, url) {
-//             if (err) reject(err);
-//             else resolve(url);
-//         });
-//     });
-//     // console.log(real_qrcode, "real_qrcode here!!")
-//     const visitor = await Visitor_Detail.findByIdAndUpdate(id, {qr_code: real_qrcode})
-//     await visitor.save()
-//     res.redirect(`/visitor/${visitor._id}/profile`)
-// })
+router.get("/logout", (req, res) => {
+    req.session.visitor_id = null
+    req.flash("success", "Logged out successfully!")
+    res.redirect("/visitor/login")
+})
 
 module.exports = router
