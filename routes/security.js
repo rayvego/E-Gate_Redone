@@ -30,7 +30,7 @@ router.post("/login", async (req, res) => {
         console.log(security_user)
         req.session.security_user_sic = security_user.sic
         req.session.gate_number = gate_number
-        req.flash("success", "Welcome to E-Gate!)
+        req.flash("success", "Welcome to E-Gate!")
         res.redirect("/security/home")
     } else {
         res.redirect("/security/login")
