@@ -28,7 +28,6 @@ const visitorSchema = new mongoose.Schema({
     },
     scan_count: { // system generated
         type: Number,
-        required: true,
         default: 0,
     },
     gate_number: { // taken from security login session
@@ -49,6 +48,9 @@ const visitorSchema = new mongoose.Schema({
         required: true,
     },
     isApproved: { // filled by security
+        type: Boolean,
+    },
+    isExpired: {
         type: Boolean,
     }
 })
