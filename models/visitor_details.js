@@ -1,6 +1,11 @@
 const mongoose = require("mongoose")
 
 const visitorDetailsSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     name: { // * filled on form
         type: String,
         required: true,
@@ -20,9 +25,19 @@ const visitorDetailsSchema = new mongoose.Schema({
         concerned_with: String,
         tenure: Number,
     },
-    qrcode: String
+    qrcode: String,
+    isExpired: {
+        type: Boolean,
+        default: true
+    },
+    scan_count: {
+        type: Number,
+        default: 0
+    },
 })
 
 Visitor_Detail = mongoose.model("Visitor_Detail", visitorDetailsSchema)
+
+Visitor_Detail.ensureIndexes()
 
 module.exports = Visitor_Detail

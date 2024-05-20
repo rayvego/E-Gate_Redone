@@ -71,7 +71,7 @@ router.post("/:id/profile", resident_logged_in, catchAsync (async (req, res) => 
 router.get("/logout", (req, res) => {
     req.session.resident_ic = null
     req.flash("success", "Logged out successfully!")
-    res.redirect("/visitor/login")
+    res.redirect("/resident/login")
 })
 
 module.exports = router

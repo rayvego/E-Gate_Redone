@@ -81,6 +81,8 @@ app.use((req, res, next) => {
     res.locals.gate_number = req.session.gate_number
     res.locals.success = req.flash("success")
     res.locals.error = req.flash("error")
+    res.locals.currentResident = req.session.resident_ic
+    res.locals.currentVisitor = req.session.visitor_id
     next()
 })
 

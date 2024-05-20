@@ -3,6 +3,7 @@ const {number} = require("joi")
 
 module.exports.visitorDetailsSchema = Joi.object({
     visitor: Joi.object({
+        username: Joi.string().required(),
         name: Joi.string().required(),
         password: Joi.string().required(),
         phone_number: Joi.string().regex(/^[0-9]{10}$/).required(),

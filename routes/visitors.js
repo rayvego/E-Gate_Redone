@@ -44,15 +44,25 @@ router.get("/signup", (req, res) => {
 
 router.post("/signup", validateVisitorDetails, async (req, res) => {
     const {visitor} = req.body
-    const {name, password, phone_number} = visitor
+    const {name, password, phone_number, username} = visitor
     console.log(visitor)
     const hashed_password = await bcrypt.hash(password, 12)
-    const visitor_user = new Visitor_Detail({name, password: hashed_password, phone_number})
+    const visitor_user = new Visitor_Detail({name, username, password: hashed_password, phone_number})
     // console.log(visitor_user)
-    await visitor_user.save()
-    req.session.visitor_id = visitor_user._id
-    req.flash("success", "Welcome to E-Gate!")
-    res.redirect(`/visitor/${visitor_user._id}/profile`)
+    try {
+        await visitor_user.save()
+        req.session.visitor_id = visitor_user._id
+        req.flash("success", "Welcome to E-Gate!")
+        res.redirect(`/visitor/${visitor_user._id}/profile`)
+    } catch (err) {
+        if (err.code === 11000) {
+            console.log('Username already exists')
+            req.flash("error", "That username already exists, please enter another one!")
+            res.redirect("/visitor/signup")
+        } else {
+            console.log(err);
+        }
+    }
 })
 
 router.get("/login", (req, res) => {
@@ -61,23 +71,23 @@ router.get("/login", (req, res) => {
 
 router.post("/login", async (req, res) => {
     const {visitor} = req.body
-    const {phone_number, password} = visitor
-    const visitor_user = await Visitor_Detail.findOne({phone_number})
+    const {username, password} = visitor
+    const visitor_user = await Visitor_Detail.findOne({username})
 
     if (visitor_user) {
-        // console.log(visitor_user);
+        console.log(visitor_user);
         const validVisitor = await bcrypt.compare(password, visitor_user.password)
         if (validVisitor) {
             req.session.visitor_id = visitor_user._id
             req.flash("success", "Welcome back!")
             res.redirect(`/visitor/${visitor_user._id}/profile`)
         } else {
-            req.flash("error", "Invalid Phone Number or Password!")
+            req.flash("error", "Invalid Username or Password!")
             res.redirect("/visitor/login")
         }
     } else {
         console.log('User not found')
-        req.flash("error", "Invalid Phone Number or Password!")
+        req.flash("error", "Invalid Username or Password!")
         res.redirect("/visitor/login")
     }
 })
@@ -86,6 +96,7 @@ router.get("/:id/profile", visitor_logged_in, catchAsync (async (req, res) => {
     const {id} = req.params
     const visitor = await Visitor_Detail.findById(id)
     // console.log(visitor)
+    console.log(visitor._id)
     res.render("visitors/profile", {visitor})
 }))
 
@@ -98,6 +109,7 @@ router.post("/:id/profile", visitor_logged_in, validateVisitor, async (req, res)
     visitor.temp_data = {vehicle_number, reason, concerned_with, tenure}
     const qrcode = await qr.toDataURL(id)
     visitor.qrcode = qrcode
+    visitor.isExpired = false
     await visitor.save()
     req.flash("success", "QR Code Generated Successfully!")
     res.redirect(`/visitor/${visitor._id}/profile`)

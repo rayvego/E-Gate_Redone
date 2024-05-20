@@ -82,12 +82,25 @@ router.get("/verify/:id", security_logged_in, catchAsync(async (req, res) => {
             console.log(user)
             res.render("security/verify", {notFound, isResident, user})
         } else {
+            isResident = false
             console.log("VISITOR!!!")
             console.log(user)
-            // const {vehicle_number, reason, concerned_with, tenure} = user.temp_data
-            // console.log(vehicle_number, reason, concerned_with, tenure)
-            isResident = false
-            res.render("security/verify", {notFound, isResident, user})
+            let expired = false
+            if (user.isExpired) {
+                expired = true
+                res.render("security/verify", {notFound, isResident, user, expired})
+            } else { // qr not expired, check if the visitor is entering or exiting
+                if (user.scan_count % 2 !== 0) { // matlab odd hai so the visitor is now exiting the campus so expire the qr code
+                    user.qrcode = null
+                    user.isExpired = true
+                    user.scan_count += 1
+                    await user.save()
+                    req.flash("success", "Visitor Exited Successfully!")
+                    res.redirect("/security/scanner")
+                } else { // if qr is not expired, and it is even then the visitor is entering the campus
+                    res.render("security/verify", {notFound, isResident, user, expired})
+                }
+            }
         }
     } catch (e) {
         console.log(e)
@@ -97,10 +110,14 @@ router.get("/verify/:id", security_logged_in, catchAsync(async (req, res) => {
 }))
 
 router.post("/verify/visitor", security_logged_in, async (req, res) => {
-    const {name, isApproved, phone_number, sic, gate_number, vehicle_number, concerned_with, reason, tenure} = req.body
-    const visitor = new Visitor({name, phone_number, sic, gate_number, vehicle_number, concerned_with, reason, tenure, isApproved})
+    const {name, username, phone_number, sic, gate_number, vehicle_number, concerned_with, reason, tenure, isApproved} = req.body
+    const visitor_details = await Visitor_Detail.findOne({username})
+    const visitor = new Visitor({name, username, phone_number, sic, gate_number, vehicle_number, concerned_with, reason, tenure, isApproved})
+    visitor_details.scan_count += 1
+    await visitor_details.save()
     await visitor.save()
     console.log("New Visitor Saved!!")
+    console.log("scan count: ", visitor_details.scan_count)
     req.flash("success", "Visitor Verified Successfully!")
     res.redirect("/security/scanner")
 })

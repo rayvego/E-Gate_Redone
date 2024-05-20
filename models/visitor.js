@@ -2,6 +2,10 @@ const mongoose = require("mongoose")
 // Don't need to connect to the database as we are going to require this
 
 const visitorSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+    },
     name: { // * filled on form
         type: String,
         required: true,
@@ -20,15 +24,11 @@ const visitorSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    exit_time: { // system generated, tenure = exit_time - entry_time
+    exit_time: { // system generated, tenure = entry_time + tenure
         type: Date,
     },
     tenure: { // * filled on form
         type: Date,
-    },
-    scan_count: { // system generated
-        type: Number,
-        default: 0,
     },
     gate_number: { // taken from security login session
         type: Number,
@@ -48,9 +48,6 @@ const visitorSchema = new mongoose.Schema({
         required: true,
     },
     isApproved: { // filled by security
-        type: Boolean,
-    },
-    isExpired: {
         type: Boolean,
     }
 })

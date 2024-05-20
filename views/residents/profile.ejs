@@ -6,6 +6,7 @@
     <div class="header">
         <h3>Resident Profile Page</h3>
     </div>
+    <% if (currentResident && (resident.ic === currentResident)) {%>
     <div class="inner-container">
         <div class="card">
             <img src="/images/profile.png" class="card-img-top" alt="...">
@@ -31,4 +32,7 @@
             <%}%>
         </div>
     </div>
+    <% } else {%>
+        <h3>Unauthorized Access ❌❌</h3>
+    <%}%>
 </div>

@@ -12,11 +12,11 @@
             </div>
         </div>
     <%} else {%>
-    <div class="header">
-        <h3>Information about the Person Entering the Facility</h3>
-    </div>
     <div class="form-container">
         <%if (isResident) {%>
+        <div class="header">
+            <h3>Information about the Resident</h3>
+        </div>
             <form action="/security/verify/resident" class="needs-validation" novalidate method="POST">
                 <div class="mb-3 row">
                     <div class="input-group">
@@ -100,11 +100,31 @@
             </form>
 
         <%} else {%>
+            <%if (expired) {%>
+            <div class="notFound">
+                <div class="header">
+                    <h2>QR expired, please generate a new QR to enter the premises!</h2>
+                </div>
+                <div class="close">
+                    <img src="/images/close.png" alt="">
+                </div>
+            </div>
+            <%} else {%>
+        <div class="header">
+            <h3>Information about the Visitor</h3>
+        </div>
             <form action="/security/verify/visitor" class="needs-validation" novalidate method="POST">
                 <div class="mb-3 row">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon3">Visitor's Name</span>
                         <input type="text" class="form-control" id="basic-url" name="name" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.name%>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon3">Username:</span>
+                        <input type="text" class="form-control" id="basic-url" name="username" readonly aria-describedby="basic-addon3 basic-addon4" value="<%=user.username%>">
                     </div>
                 </div>
 
@@ -170,6 +190,7 @@
                     </div>
                 </div>
             </form>
+        <%}%>
         <%}%>
     </div>
     <%}%>
