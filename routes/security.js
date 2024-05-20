@@ -50,13 +50,13 @@ router.post("/login", async (req, res) => {
         req.session.security_user_sic = security_user.sic
         req.session.gate_number = gate_number
         req.flash("success", "Welcome to E-Gate!")
-        res.redirect("/security/home")
+        res.redirect("/security/")
     } else {
         res.redirect("/security/login")
     }
 })
 
-router.get("/scanner", (req, res) => {
+router.get("/scanner", security_logged_in, (req, res) => {
     res.render("security/scanner")
 })
 

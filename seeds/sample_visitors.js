@@ -1,6 +1,7 @@
 module.exports = [
     {
         name: "John Doe",
+        username: "johndoe",
         password: "password123",
         phone_number: 1234567890,
         vehicle_number: "MH12AB1234",
@@ -14,6 +15,7 @@ module.exports = [
     },
     {
         name: "Alice Smith",
+        username: "alicesmith",
         password: "securepass",
         phone_number: 9876543210,
         vehicle_number: "KL34CD5678",
@@ -27,6 +29,7 @@ module.exports = [
     },
     {
         name: "Bob Johnson",
+        username: "bobjohnson",
         password: "bobspass",
         phone_number: 5556667777,
         vehicle_number: "NY99EF7890",

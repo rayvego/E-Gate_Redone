@@ -13,6 +13,7 @@ const seedDB = async () => {
     await visitor_data.deleteMany({})
     for (let visitor of visitors) {
         const visiting_person = new visitor_data({
+            username: visitor.username,
             name: visitor.name,
             password: visitor.password,
             phone_number: visitor.phone_number,
