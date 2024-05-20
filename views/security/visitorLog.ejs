@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Log</title>
+    <style>
+        .not_expired {
+            color: black;
+        }
+
+        .expired {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li class="not_expired">Test list element (outside condition)</li>
+    <% campusData.forEach(person => { %>
+        <li class="<%= person.isExpired ? 'expired' : 'not_expired' %>"><%= person.name, person.exit_time %></li>
+    <% }); %>
+</ul>
+
+<script>
+        // Reload the page every 5 seconds (5000 milliseconds)
+        setInterval(function() {
+        location.reload();
+    }, 7000);
+</script>
+
+</body>
+</html>

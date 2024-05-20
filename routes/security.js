@@ -22,13 +22,11 @@ const security_logged_in = (req, res, next) => {
 const clear_interval = (req, res, next) => {
     clearInterval(intervalId);
     intervalId = null;
-    console.log(`Route accessed: ${req.method} ${req.originalUrl}`);
     next();
 };
 const set_interval = (req, res, next) => {
     clearInterval(intervalId);
     intervalId = 1;
-    console.log(`interval set to not null!`);
     next();
 };
 router.use(set_interval);
@@ -142,7 +140,7 @@ router.get("/database/visitor", clear_interval, async (req,res) => {
                 }
             }, 5 * 1000); // 5 seconds in milliseconds
         }
-        res.render('poepleLog/visitorLog', {campusData});
+        res.render('security/visitorLog', { campusData });
 
     } catch (error) {
         console.error("Error fetching initial campus data:", error);
