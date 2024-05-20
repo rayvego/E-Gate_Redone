@@ -7,8 +7,6 @@ const router = express.Router({mergeParams: true})
 const bcrypt = require("bcrypt")
 const catchAsync = require("../utils/catchAsync")
 const qr = require("qrcode")
-const fetch_data  = require("../expired_visitor")
-let intervalId = null
 
 const validateVisitorDetails = (req, res, next) => {
     const {error} = visitorDetailsSchema.validate(req.body)
@@ -39,19 +37,6 @@ const visitor_logged_in = (req, res, next) => {
     }
     next();
 };
-
-// Middleware to clear the interval when the route is not being accessed
-const clear_interval = (req, res, next) => {
-    if (intervalId) {
-        clearInterval(intervalId);
-        intervalId = null;
-    }
-    next();
-};
-
-// Apply both middlewares to the router
-router.use(visitor_logged_in);
-router.use(clear_interval);
 
 router.get("/signup", (req, res) => {
     res.render("visitors/signup")
@@ -125,27 +110,6 @@ router.get("/logout", (req, res) => {
     res.redirect("/visitor/login");
 });
 
-// Route to log visitor actions and update campus data
-router.get("/log", visitor_logged_in, clear_interval, async (req, res) => {
-    try {
-        // Fetch campus data updated immediately
-        let campusData = await fetch_data();
-
-        // Set up interval to fetch data every 5 seconds
-        intervalId = setInterval(async () => {
-            try {
-                campusData = await fetch_data();
-            } catch (error) {
-                console.error("Error fetching campus data:", error);
-            }
-        }, 5 * 1000); // 5 seconds in milliseconds
-
-        res.render('poepleLog/visitorLog', { campusData });
-
-    } catch (error) {
-        console.error("Error fetching initial campus data:", error);
-        res.status(500).send("Internal Server Error");
-    }
-});
+router.get
 
 module.exports = router

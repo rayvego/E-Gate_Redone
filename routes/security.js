@@ -8,7 +8,9 @@ const Resident_Detail = require("../models/resident_details")
 const Visitor_Detail = require("../models/visitor_details")
 const bcrypt = require("bcrypt")
 const catchAsync = require("../utils/catchAsync")
-
+const visitor_data = require("../models/visitor");
+const fetch_data  = require("../expired_visitor")
+let intervalId =1;
 const security_logged_in = (req, res, next) => {
     if(!req.session.security_user_sic) {
         req.flash("error", "Please login first!")
@@ -16,6 +18,25 @@ const security_logged_in = (req, res, next) => {
     }
     next()
 }
+
+const clear_interval = (req, res, next) => {
+    clearInterval(intervalId);
+    intervalId = null;
+    console.log(`Route accessed: ${req.method} ${req.originalUrl}`);
+    next();
+};
+const set_interval = (req, res, next) => {
+    clearInterval(intervalId);
+    intervalId = 1;
+    console.log(`interval set to not null!`);
+    next();
+};
+router.use(set_interval);
+
+const logRouteAccess = (req, res, next) => {
+    console.log(`Route accessed: ${req.method} ${req.originalUrl}`);
+    next(); // Call the next middleware or route handler
+};
 
 router.get("/login", (req, res) => {
     res.render("security/login")
@@ -37,11 +58,11 @@ router.post("/login", async (req, res) => {
     }
 })
 
-router.get("/scanner",  security_logged_in, (req, res) => {
+router.get("/scanner", (req, res) => {
     res.render("security/scanner")
 })
 
-router.get("/home",  security_logged_in,(req, res) => {
+router.get("/",(req, res) => {
     res.render("security/home")
 })
 
@@ -95,6 +116,38 @@ router.post("/verify/resident", security_logged_in, async (req, res) => {
     console.log("New Resident Saved!!")
     req.flash("success", "Resident Verified Successfully!")
     res.redirect("/security/scanner")
+})
+
+router.get("/database", async (req,res) => {
+    res.render("security/databaseHome")
+})
+
+router.get("/database/resident", async (req,res) =>{
+    const residentData = await Resident_Detail.find({})
+    res.render("security/residentLog", {residentData})
+})
+
+router.get("/database/visitor", clear_interval, async (req,res) => {
+    try {
+        // Fetch campus data updated immediately
+        let campusData = await fetch_data();
+
+        // Set up interval to fetch data every 5 seconds
+        if(!intervalId) {
+            intervalId = setInterval(async () => {
+                try {
+                    campusData = await fetch_data();
+                } catch (error) {
+                    console.error("Error fetching campus data:", error);
+                }
+            }, 5 * 1000); // 5 seconds in milliseconds
+        }
+        res.render('poepleLog/visitorLog', {campusData});
+
+    } catch (error) {
+        console.error("Error fetching initial campus data:", error);
+        res.status(500).send("Internal Server Error");
+    }
 })
 
 

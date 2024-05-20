@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const visitor_sample = require('./models/visitor')
+const visitor_data = require('./models/visitor')
 const visitors = require('./seeds/sample_visitors')
 const moment = require('moment');
 
@@ -7,15 +7,12 @@ const moment = require('moment');
 mongoose.connect("mongodb://127.0.0.1:27017/e-gate");
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "connection error:"))
-db.once("open", () => {
-    console.log("Ok Boss: Mongo connection successful ✅")
-})
 
 //Sample data insertion
 const seedDB = async () => {
-    await visitor_sample.deleteMany({})
+    await visitor_data.deleteMany({})
     for (let visitor of visitors) {
-        const visiting_person = new visitor_sample({
+        const visiting_person = new visitor_data({
             name: visitor.name,
             password: visitor.password,
             phone_number: visitor.phone_number,
@@ -40,7 +37,7 @@ seedDB().then(() => {
 async function fetchCampusData() {
     try {
         // Fetch data from MongoDB
-        const data = await visitor_sample.find({});
+        const data = await visitor_data.find({});
 
         // Map over the data and mark expired persons
         const current_date = Date.now();
@@ -63,15 +60,5 @@ async function fetchCampusData() {
     }
 }
 
-// Insert sample data and export fetchCampusData function
-// async function initialize() {
-//     try {
-//         await insertSampleData();
-//     } finally {
-//         await mongoose.connection.close();
-//     }
-// }
-//
-// initialize();
 
 module.exports = fetchCampusData;

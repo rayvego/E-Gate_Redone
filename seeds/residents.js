@@ -7,7 +7,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/e-gate") // Connecting to the applic
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "connection error:"))
 db.once("open", () => {
-    console.log("Mongo connection successful ✅")
+    console.log("Resident: Mongo connection successful ✅")
 })
 
 const hash_password = async (password) => {
@@ -33,5 +33,6 @@ const seedDB = async () => {
 }
 
 seedDB().then(() => {
+    console.log("Seeded Resident!")
     mongoose.connection.close()
 })
