@@ -1,9 +1,13 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const mongoose = require('mongoose')
 const Resident_Detail = require("../models/resident_details")
 const resident_details = require("./resident_users")
 const bcrypt = require("bcrypt")
 
-mongoose.connect("mongodb://127.0.0.1:27017/e-gate") // Connecting to the application's db.
+mongoose.connect(process.env.DB_URL) // Connecting to the application's db.
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "connection error:"))
 db.once("open", () => {

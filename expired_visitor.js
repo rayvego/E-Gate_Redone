@@ -1,44 +1,43 @@
 const mongoose = require('mongoose');
-const visitor_data = require('./models/visitor')
-const visitors = require('./seeds/sample_visitors')
+const visitors = require('./models/visitor')
 const moment = require('moment');
 
 // Establish MongoDB connection
-mongoose.connect("mongodb://127.0.0.1:27017/e-gate");
+mongoose.connect(process.env.DB_URL);
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "connection error:"))
 
-//Sample data insertion
-const seedDB = async () => {
-    await visitor_data.deleteMany({})
-    for (let visitor of visitors) {
-        const visiting_person = new visitor_data({
-            username: visitor.username,
-            name: visitor.name,
-            password: visitor.password,
-            phone_number: visitor.phone_number,
-            vehicle_number: visitor.vehicle_number,
-            exit_time: visitor.exit_time,
-            gate_number: visitor.gate_number,
-            sic: visitor.sic,
-            concerned_with: visitor.concerned_with,
-            reason: visitor.reason,
-            isApproved: visitor.isApproved,
-            isExpired: visitor.isExpired
-        })
-        await visiting_person.save()
-    }
-}
-
-seedDB().then(() => {
-    console.log("seeded");
-})
+// //Sample data insertion
+// const seedDB = async () => {
+//     await visitor_data.deleteMany({})
+//     for (let visitor of visitors) {
+//         const visiting_person = new visitor_data({
+//             username: visitor.username,
+//             name: visitor.name,
+//             password: visitor.password,
+//             phone_number: visitor.phone_number,
+//             vehicle_number: visitor.vehicle_number,
+//             exit_time: visitor.exit_time,
+//             gate_number: visitor.gate_number,
+//             sic: visitor.sic,
+//             concerned_with: visitor.concerned_with,
+//             reason: visitor.reason,
+//             isApproved: visitor.isApproved,
+//             isExpired: visitor.isExpired
+//         })
+//         await visiting_person.save()
+//     }
+// }
+//
+// seedDB().then(() => {
+//     console.log("seeded");
+// })
 
 // Function to fetch campus data from the 'visitor' collection
 async function fetchCampusData() {
     try {
         // Fetch data from MongoDB
-        const data = await visitor_data.find({});
+        const data = await visitors.find({});
 
         // Map over the data and mark expired persons
         const current_date = Date.now();

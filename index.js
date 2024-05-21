@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 // * Importing and setting up dependencies
 const express = require("express")
 const app = express()
@@ -55,7 +59,8 @@ const securityRoutes = require("./routes/security")
 
 // * Setting up mongoose connection
 const mongoose = require('mongoose')
-mongoose.connect("mongodb://127.0.0.1:27017/e-gate") // Connecting to the mentioned db.
+const url = process.env.DB_URL
+mongoose.connect(url) // Connecting to the mentioned db.
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "connection error:"))
 db.once("open", () => {

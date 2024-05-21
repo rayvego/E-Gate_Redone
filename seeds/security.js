@@ -1,13 +1,17 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const mongoose = require('mongoose')
 const Security = require("../models/security")
 const securities = require("./security_users")
 const bcrypt = require("bcrypt")
 
-mongoose.connect("mongodb://127.0.0.1:27017/e-gate") // Connecting to the application's db.
+mongoose.connect(process.env.DB_URL) // Connecting to the application's db.
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "connection error:"))
 db.once("open", () => {
-    console.log("Mongo connection successful ✅")
+    console.log("Security: Mongo connection successful ✅")
 })
 
 const hash_password = async (password) => {
@@ -31,5 +35,6 @@ const seedDB = async () => {
 }
 
 seedDB().then(() => {
+    console.log("Seeded Security!")
     mongoose.connection.close()
 })

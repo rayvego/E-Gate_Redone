@@ -17,6 +17,7 @@
 <body>
 <ul>
     <li class="not_expired">Test list element (outside condition)</li>
+    <li class="expired">Test list element (outside condition)</li>
     <% campusData.forEach(person => { %>
         <li class="<%= person.isExpired ? 'expired' : 'not_expired' %>"><%= person.name, person.exit_time %></li>
     <% }); %>

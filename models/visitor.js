@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const moment = require("moment")
 // Don't need to connect to the database as we are going to require this
 
 const visitorSchema = new mongoose.Schema({
@@ -22,13 +23,13 @@ const visitorSchema = new mongoose.Schema({
     },
     entry_time: { // system generated
         type: Date,
-        default: Date.now()
+        default: Date.now() + (5.5 * 60 * 60 * 1000)
     },
     exit_time: { // system generated, tenure = entry_time + tenure
         type: Date,
     },
     tenure: { // * filled on form
-        type: Date,
+        type: Number,
     },
     gate_number: { // taken from security login session
         type: Number,
@@ -51,6 +52,11 @@ const visitorSchema = new mongoose.Schema({
         type: Boolean,
     }
 })
+
+visitorSchema.methods.save_exit_time = async function () {
+    this.exit_time = new Date(this.entry_time.getTime() + this.tenure * 60 * 1000 * 60);
+    await this.save();
+}
 
 Visitor = mongoose.model("Visitor", visitorSchema)
 

@@ -10,7 +10,8 @@ const bcrypt = require("bcrypt")
 const catchAsync = require("../utils/catchAsync")
 const visitor_data = require("../models/visitor");
 const fetch_data  = require("../expired_visitor")
-let intervalId =1;
+let intervalId = 1;
+
 const security_logged_in = (req, res, next) => {
     if(!req.session.security_user_sic) {
         req.flash("error", "Please login first!")
@@ -116,6 +117,7 @@ router.post("/verify/visitor", security_logged_in, async (req, res) => {
     visitor_details.scan_count += 1
     await visitor_details.save()
     await visitor.save()
+    await visitor.save_exit_time()
     console.log("New Visitor Saved!!")
     console.log("scan count: ", visitor_details.scan_count)
     req.flash("success", "Visitor Verified Successfully!")
