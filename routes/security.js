@@ -139,12 +139,12 @@ router.get("/database", async (req,res) => {
     res.render("security/databaseHome")
 })
 
-router.get("/database/resident", async (req,res) =>{
+router.get("/database/resident", security_logged_in, async (req,res) =>{
     const residentData = await Resident_Detail.find({})
     res.render("security/residentLog", {residentData})
 })
 
-router.get("/database/visitor", clear_interval, async (req,res) => {
+router.get("/database/visitor", security_logged_in, clear_interval, async (req,res) => {
     try {
         // Fetch campus data updated immediately
         let campusData = await fetch_data();
