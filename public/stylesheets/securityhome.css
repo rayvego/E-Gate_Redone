@@ -1,0 +1,44 @@
+body{
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.card-container{
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 6%;
+}
+.card {
+    background-color: rgba(0, 0, 0, 0.0);
+    backdrop-filter: blur(50px);
+    width: 27%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.card_database{
+    margin-left:16%;
+}
+.card_scanner{
+    margin-left:13%;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.btn {
+    width:28%;
+    background: rgb(240,115,199);
+    background: linear-gradient(90deg, rgba(240,115,199,1) 0%, rgba(247,72,124,1) 100%);
+}
+.image{
+    width:60%;
+}

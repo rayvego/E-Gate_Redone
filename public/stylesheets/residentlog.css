@@ -1,0 +1,59 @@
+body {
+    background-image: url("../images/background.jpg");
+    background-attachment: fixed;  /* Maintains fixed background */
+    background-size: cover;  /* You can adjust this property as needed */
+    position: relative;
+    font-family: "Comic Sans MS" /* Choose a more suitable font family here */;  /* Replace with desired font */
+    color: #e0e0e0;  /* Changed text color to a light grey */
+}
+.page-container {
+    display: flex;
+    flex-direction: column;  /* Stacks elements vertically */
+}
+.heading-container {
+    display: flex;
+    justify-content: center;
+    z-index: 1;  /* Added z-index property */
+}
+
+.heading {
+    /* Existing styles for heading */
+    text-align: center;  /* Centers the text horizontally (redundant here) */
+    font-size: 1.5em;  /* Adjust font size as needed */
+    margin-bottom: 20px;  /* Adds space below the heading */
+    color: white;  /* Assuming you want white text */
+}
+
+.namecontainer {
+    /* Existing styles for namecontainer */
+    background-color: transparent; /* Maintains transparent background */
+    backdrop-filter: blur(10px);
+    height: auto;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+    max-width: 500px;  /* Increased width */
+    display: grid;  /* Changed display to grid for multi-column layout */
+    grid-template-columns: repeat(2, 1fr);  /* Creates two columns */
+    grid-gap: 10px;  /* Adds spacing between names */
+    animation: fadeIn 2s ease-in-out;
+    margin: 0 auto; /* Added to center the container horizontally */
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.person {
+    color: inherit;  /* Inherits color from body */
+    font-size: 1.2em;
+    margin: 0;  /* Removed extra margin for grid layout */
+    background-color: rgba(0, 0, 0, 0.6); /* Maintains background color for names */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+

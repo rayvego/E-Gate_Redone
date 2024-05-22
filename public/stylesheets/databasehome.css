@@ -1,0 +1,62 @@
+body{
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.card-container{
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 6%;
+
+}
+.card {
+    background-color: rgba(0, 0, 0, 0.0);
+    backdrop-filter: blur(50px);
+    width: 27%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 390px;
+
+}
+.card_campus_info{
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.card_resident{
+    margin-left:2%;
+}
+.card_visitor{
+    margin-left:2%;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.btn {
+    width:50%;
+    background: rgb(240,115,199);
+    background: linear-gradient(90deg, rgba(240,115,199,1) 0%, rgba(247,72,124,1) 100%);
+}
+.image{
+    width:60%;
+}
+.info_text{
+    width:100%;
+    color: inherit;  /* Inherits color from body */
+    font-size: 1.2em;
+    margin: 0;  /* Removed extra margin for grid layout */
+    background-color: rgba(0, 0, 0, 0.6); /* Maintains background color for names */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}

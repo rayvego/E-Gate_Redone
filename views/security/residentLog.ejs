@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <%layout("layouts/boilerplate")%>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus</title>
-    <style>
-        .person{
-
-        }
-    </style>
+    <link rel="stylesheet" href="/stylesheets/residentlog.css">
 </head>
 <body>
-HI
-<ul>
-    <% residentData.forEach(person => { %>
-        <li class="person"><%= person.name%></li>
-    <% }); %>
-</ul>
+<div class="page-container">
+    <div class="heading-container">
+        <h1 class="heading">Resident Database</h1>
+    </div>
+    <div class="namecontainer">
+        <% residentData.forEach(person => { %>
+            <p class="person"><%= person.name%> - <%= person.ic%></p>
+        <% }); %>
+    </div>
+</div>
 </body>
 </html>

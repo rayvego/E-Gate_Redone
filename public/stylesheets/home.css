@@ -21,7 +21,11 @@
     /*outline: 2px solid #FD6C9D;*/
     background-color: rgba(0, 0, 0, 0.0);
     backdrop-filter: blur(50px);
-    height: 40rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
 }
 
 .card-body {
@@ -68,7 +72,9 @@ h5 {
     background: rgb(240,115,199);
     background: linear-gradient(90deg, rgba(240,115,199,1) 0%, rgba(247,72,124,1) 100%);
 }
-
+.image{
+    width: 70%;
+}
 /*was trying to put collapsing cards on click*/
 /*.card-container > div {*/
 /*    transition: width 0.5s;*/

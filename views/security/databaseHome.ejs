@@ -1,28 +1,27 @@
 <%layout("layouts/boilerplate")%>
-<link rel="stylesheet" href="/stylesheets/security_home.css">
-<div class="campus_info">
-    <div>Total no. of people in campus: 100</div>
-    <div>Total Residents: 70</div>
-    <div>Total Visitors: 30</div>
-    <div>Expired Visitors: 4</div>
-    <div>Residents outside campus: 42</div>
-</div>
+<link rel="stylesheet" href="/stylesheets/databasehome.css">
 <div class="card-container">
-    <div class="card" style="width: 23rem;">
-        <img src="/images/database.png" class="card-img-top security" alt="...">
+    <div class="card_resident card" style="width: 23rem;">
+        <img src="/images/resident.svg" class="card-img-top resident image" alt="...">
         <div class="card-body">
             <h5 class="card-title">Residents</h5>
             <p class="card-text">Access restricted to authorized individuals only.</p>
-            <a href="#" class="btn">Go somewhere</a>
+            <a href="/security/database/resident" class="btn">Resident Data</a>
         </div>
     </div>
-
-    <div class="card" style="width: 23rem;">
-        <img src="/images/qrscanner.png" class="card-img-top visitor" alt="...">
+    <div class="card_campus_info card">
+        <div class="info_text">Total No. of People: 100</div>
+        <div class="info_text">Total Residents: 70</div>
+        <div class="info_text">Total Visitors: 30</div>
+        <div class="info_text">Expired Visitors: 4</div>
+        <div class="info_text">Residents Outside Campus: 42</div>
+    </div>
+    <div class="card_visitor card" style="width: 23rem;">
+        <img src="/images/visitor.png" class="card-img-top visitor image" alt="...">
         <div class="card-body">
             <h5 class="card-title">Visitors</h5>
             <p class="card-text">Sign up swiftly, receive your QR code, and log your entry into the premises.</p>
-            <a href="#" class="btn">Go somewhere</a>
+            <a href="/security/database/visitor" class="btn">Visitor Data</a>
         </div>
     </div>
 
