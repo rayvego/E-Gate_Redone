@@ -76,18 +76,18 @@
 
                 <div class="centered">
                     <div class="button-container">
-                        <input type="radio" class="btn-check" name="isEntry" value="true" id="option5" autocomplete="off" checked>
+                        <input type="radio" class="btn-check" name="isEntry" value=<%= true %> id="option5" autocomplete="off" checked>
                         <label class="btn" for="option5">Entering</label>
-                        <input type="radio" class="btn-check" name="isEntry" value="false" id="option6" autocomplete="off">
+                        <input type="radio" class="btn-check" name="isEntry" value=<%= false %> id="option6" autocomplete="off">
                         <label class="btn" for="option6">Exiting</label>
                     </div>
                 </div>
 
                 <div class="centered">
                     <div class="choice">
-                        <input type="radio" class="btn-check" name="isApproved" id="success-outlined" value="true" autocomplete="off">
+                        <input type="radio" class="btn-check" name="isApproved" id="success-outlined" value=<%= true %> autocomplete="off" checked>
                         <label class="btn btn-outline-success" for="success-outlined">Allow</label>
-                        <input type="radio" class="btn-check" name="isApproved" id="danger-outlined" value="false" autocomplete="off" checked>
+                        <input type="radio" class="btn-check" name="isApproved" id="danger-outlined" value=<%= false %> autocomplete="off">
                         <label class="btn btn-outline-danger" for="danger-outlined">Reject</label>
                     </div>
                 </div>

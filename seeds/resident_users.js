@@ -6,6 +6,7 @@ module.exports = [
             "email": "johndoe@iitgn.ac.in",
             "phone_number": 1234567890,
             "address": "123 Main St, Block A, Room 101",
+            "inCampus": true,
         },
         {
             "name": "Jane Smith",
@@ -14,6 +15,7 @@ module.exports = [
             "email": "janesmith@iitgn.ac.in",
             "phone_number": 9876543210,
             "address": "124 Main St, Block A, Room 102",
+            "inCampus": true,
         },
         {
             "name": "Alice Johnson",
@@ -22,6 +24,7 @@ module.exports = [
             "email": "alicejohnson@iitgn.ac.in",
             "phone_number": 4561237890,
             "address": "125 Main St, Block B, Room 201",
+            "inCampus": true,
         },
         {
             "name": "Bob Brown",
@@ -30,6 +33,7 @@ module.exports = [
             "email": "bobbrown@iitgn.ac.in",
             "phone_number": 7893216540,
             "address": "126 Main St, Block B, Room 202",
+            "inCampus": true,
         },
         {
             "name": "Emily Davis",
@@ -38,6 +42,7 @@ module.exports = [
             "email": "emilydavis@iitgn.ac.in",
             "phone_number": 3216549870,
             "address": "127 Main St, Block C, Room 301",
+            "inCampus": true,
         },
         {
             "name": "Michael Wilson",
@@ -46,6 +51,7 @@ module.exports = [
             "email": "michaelwilson@iitgn.ac.in",
             "phone_number": 6549873210,
             "address": "128 Main St, Block C, Room 302",
+            "inCampus": true,
         },
         {
             "name": "Sarah Martinez",
@@ -54,6 +60,7 @@ module.exports = [
             "email": "sarahmartinez@iitgn.ac.in",
             "phone_number": 9873216540,
             "address": "129 Main St, Block D, Room 401",
+            "inCampus": true,
         },
         {
             "name": "David Lee",
@@ -62,6 +69,7 @@ module.exports = [
             "email": "davidlee@iitgn.ac.in",
             "phone_number": 1597534680,
             "address": "130 Main St, Block D, Room 402",
+            "inCampus": true,
         },
         {
             "name": "Laura Garcia",
@@ -70,6 +78,7 @@ module.exports = [
             "email": "lauragarcia@iitgn.ac.in",
             "phone_number": 8529637410,
             "address": "131 Main St, Block E, Room 501",
+            "inCampus": true,
         },
         {
             "name": "Kevin Rodriguez",
@@ -78,6 +87,7 @@ module.exports = [
             "email": "kevinrodriguez@iitgn.ac.in",
             "phone_number": 3692581470,
             "address": "132 Main St, Block E, Room 502",
+            "inCampus": true,
         },
         {
             "name": "Jessica Lopez",
@@ -86,6 +96,7 @@ module.exports = [
             "email": "jessicalopez@iitgn.ac.in",
             "phone_number": 7418529630,
             "address": "133 Main St, Block F, Room 601",
+            "inCampus": true,
         },
         {
             "name": "Daniel Hernandez",
@@ -94,6 +105,7 @@ module.exports = [
             "email": "danielhernandez@iitgn.ac.in",
             "phone_number": 8521479630,
             "address": "134 Main St, Block F, Room 602",
+            "inCampus": true,
         },
         {
             "name": "Rachel Perez",
@@ -102,6 +114,7 @@ module.exports = [
             "email": "rachelperez@iitgn.ac.in",
             "phone_number": 4567891230,
             "address": "135 Main St, Block G, Room 701",
+            "inCampus": true,
         },
         {
             "name": "Christopher Flores",
@@ -110,6 +123,7 @@ module.exports = [
             "email": "christopherflores@iitgn.ac.in",
             "phone_number": 1237894560,
             "address": "136 Main St, Block G, Room 702",
+            "inCampus": true,
         },
         {
             "name": "Megan Gonzales",
@@ -118,5 +132,6 @@ module.exports = [
             "email": "megangonzales@iitgn.ac.in",
             "phone_number": 3691472580,
             "address": "137 Main St, Block H, Room 801",
+            "inCampus": true,
         }
 ]
