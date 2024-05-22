@@ -1,4 +1,4 @@
-const {residentDetailsSchema} = require("../joi_verification");
+const {residentDetailsSchema} = require("./joi_verification");
 const ExpressError = require("./express_error");
 
 module.exports.validateResident = (req, res, next) => {

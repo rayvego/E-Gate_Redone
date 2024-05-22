@@ -1,4 +1,4 @@
-const {visitorDetailsSchema, visitorSchema} = require("../joi_verification");
+const {visitorDetailsSchema, visitorSchema} = require("./joi_verification");
 const ExpressError = require("./express_error");
 
 

@@ -5,7 +5,7 @@ const Resident_Detail = require("../models/resident_details");
 const Visitor_Detail = require("../models/visitor_details");
 const Visitor = require("../models/visitor");
 const Resident = require("../models/resident");
-const fetch_data = require("../expired_visitor");
+const fetch_data = require("../utils/expired_visitor");
 
 module.exports.renderLoginForm = (req, res) => {
     res.render("security/login")

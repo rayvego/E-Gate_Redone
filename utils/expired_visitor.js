@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const visitors = require('./models/visitor')
+const visitors = require('../models/visitor')
 const moment = require('moment');
 
 // Establish MongoDB connection
