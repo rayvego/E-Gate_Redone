@@ -34,6 +34,7 @@ const visitorDetailsSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+
 })
 
 Visitor_Detail = mongoose.model("Visitor_Detail", visitorDetailsSchema)

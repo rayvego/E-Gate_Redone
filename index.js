@@ -6,18 +6,46 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express")
 const app = express()
 
+const url = process.env.DB_URL
+
+const MongoStore = require("connect-mongo")
+const store = MongoStore.create({
+    mongoUrl: url,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: process.env.SESSION_SECRET
+    }
+});
+store.on("error", function(e) {
+    console.log("Session Store Error", e)
+})
+
+
+// * Setting up mongoose connection
+const mongoose = require('mongoose')
+mongoose.connect(url) // Connecting to the mentioned db.
+const db = mongoose.connection
+db.on("error", console.error.bind(console, "connection error:"))
+db.once("open", () => {
+    console.log("MAIN: Mongo connection successful ✅")
+})
+
 // Applications for handling sessions and cookies.
 const session = require("express-session")
 sessionConfig = {
-    secret: "shouldbeabettersecret",
+    store,
+    name: "session",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // week
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        httpOnly: true
+        httpOnly: true,
+        // secure: true // for https enable when deploying
     }
 }
+
 app.use(session(sessionConfig))
 
 const cookie_parser = require("cookie-parser")
@@ -41,6 +69,44 @@ const path = require("path")
 // This tells Express to look for view templates in the "views" directory in the application's root directory.
 app.set("views", path.join(__dirname, "views"))
 
+
+const helmet = require('helmet');
+app.use(helmet());
+
+const scriptSrcUrls = [
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js",
+    "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js",
+];
+const styleSrcUrls = [
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css",
+];
+const connectSrcUrls = [
+
+];
+const fontSrcUrls = [
+
+];
+
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
+
 // Setting up method-override to access request methods other than "GET" and "POST"
 const methodOverride = require("method-override")
 // The following line sets the way to access the method--in the URL, add "?_method="<method_name>" and set method="POST"
@@ -57,18 +123,11 @@ const residentRoutes = require("./routes/residents")
 const securityRoutes = require("./routes/security")
 
 
-// * Setting up mongoose connection
-const mongoose = require('mongoose')
-const url = process.env.DB_URL
-mongoose.connect(url) // Connecting to the mentioned db.
-const db = mongoose.connection
-db.on("error", console.error.bind(console, "connection error:"))
-db.once("open", () => {
-    console.log("Mongo connection successful ✅")
-})
-// TODO: import schema files
+
 const {Security} = require("./models/security")
 
+const mongoSanitize = require("express-mongo-sanitize")
+app.use(mongoSanitize())
 
 // * Defining middleware functions
 // These are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle.

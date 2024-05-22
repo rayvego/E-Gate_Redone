@@ -32,6 +32,10 @@ const residentDetailSchema = new mongoose.Schema({
     qrcode: {
         type: String,
     },
+    inCampus: {
+        type: Boolean,
+        default: false
+    },
 })
 
 Resident_Detail = mongoose.model("Resident_Detail", residentDetailSchema)

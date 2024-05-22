@@ -104,6 +104,7 @@ router.get("/verify/:id", security_logged_in, catchAsync(async (req, res) => {
             }
         }
     } catch (e) {
+        notFound = true
         console.log(e)
         console.log("NOT FOUND!!!")
         res.render("security/verify", {notFound})
@@ -112,12 +113,17 @@ router.get("/verify/:id", security_logged_in, catchAsync(async (req, res) => {
 
 router.post("/verify/visitor", security_logged_in, async (req, res) => {
     const {name, username, phone_number, sic, gate_number, vehicle_number, concerned_with, reason, tenure, isApproved} = req.body
-    const visitor_details = await Visitor_Detail.findOne({username})
     const visitor = new Visitor({name, username, phone_number, sic, gate_number, vehicle_number, concerned_with, reason, tenure, isApproved})
-    visitor_details.scan_count += 1
-    await visitor_details.save()
     await visitor.save()
     await visitor.save_exit_time()
+    const visitor_details = await Visitor_Detail.findOne({username})
+    if (isApproved == "false") { // not allowed to enter so expire the qr code and don't increase scan count
+        visitor_details.qrcode = null
+        visitor_details.isExpired = true
+    } else {
+        visitor_details.scan_count += 1
+    }
+    await visitor_details.save()
     console.log("New Visitor Saved!!")
     console.log("scan count: ", visitor_details.scan_count)
     req.flash("success", "Visitor Verified Successfully!")
@@ -130,6 +136,15 @@ router.post("/verify/resident", security_logged_in, async (req, res) => {
     if (vehicle_number === "") vehicle_number = null
     const resident = new Resident({name, ic, email, phone_number, address, sic, gate_number, vehicle_number, isApproved, isEntry})
     await resident.save()
+    const resident_details = await Resident_Detail.findOne({ic})
+    if (isApproved == "true") {
+        if (isEntry == "true") {
+            resident_details.inCampus = true
+        } else {
+            resident_details.inCampus = false
+        }
+    }
+    await resident_details.save()
     console.log("New Resident Saved!!")
     req.flash("success", "Resident Verified Successfully!")
     res.redirect("/security/scanner")
@@ -139,12 +154,12 @@ router.get("/database", async (req,res) => {
     res.render("security/databaseHome")
 })
 
-router.get("/database/resident", async (req,res) =>{
+router.get("/database/resident", security_logged_in, async (req,res) =>{
     const residentData = await Resident_Detail.find({})
     res.render("security/residentLog", {residentData})
 })
 
-router.get("/database/visitor", clear_interval, async (req,res) => {
+router.get("/database/visitor", security_logged_in, clear_interval, async (req,res) => {
     try {
         // Fetch campus data updated immediately
         let campusData = await fetch_data();
