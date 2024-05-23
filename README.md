@@ -129,13 +129,13 @@ E-gate_Redone/\
 ## Screenshots
 
 ## Deployment
-The current version of the website is deployed [here](#).
+The current version of the website is deployed [here](https://e-gate-wuju.onrender.com).
 
 ## Local Setup Instructions
 1. Ensure MongoDB and Node.js are installed.
 2. Clone the repository:
    ```bash
-   git clone https://github.com/username/projectname.git
+   git clone https://github.com/rayvego/E-Gate_Redone.git
    cd projectname
    ```
 3. Install dependencies:
@@ -147,8 +147,9 @@ The current version of the website is deployed [here](#).
    MONGODB_URI=...
    SESSION_SECRET=...
    ```
-5. Start the server:
+5. Comment out the 45th line in index.js to run the app on localhost.
+6. Start the server:
    ```bash
    node index.js
    ```
-6. Open the browser and navigate to `http://localhost:3000`.
+7. Open the browser and navigate to `http://localhost:3000`.
