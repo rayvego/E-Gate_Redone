@@ -120,9 +120,15 @@ module.exports.verifyResident = catchAsync (async (req, res) => {
     res.redirect("/security/scanner")
 })
 
-module.exports.showDatabaseHomePage = (req,res) => {
-    res.render("security/databaseHome")
-}
+module.exports.showDatabaseHomePage = catchAsync (async (req,res) => {
+    const visitors = await Visitor_Detail.countDocuments({ $expr: { $eq: [ { $mod: [ "$scan_count", 2 ] }, 0 ] } })
+    const residents = await Resident_Detail.countDocuments({inCampus: true})
+    const total = visitors + residents
+    const exp_visitors = await Visitor.countDocuments({isExpired: true})
+    const total_residents = await Resident_Detail.countDocuments()
+    const count_of_outside_residents = total_residents - residents
+    res.render("security/databaseHome", {visitors, residents, total, exp_visitors, count_of_outside_residents})
+})
 
 module.exports.showResidentDatabase = catchAsync(async (req,res) =>{
     const residentData = await Resident.find({})

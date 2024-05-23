@@ -5,22 +5,22 @@
         <img src="/images/resident.svg" class="card-img-top resident image" alt="...">
         <div class="card-body">
             <h5 class="card-title">Residents</h5>
-            <p class="card-text">Access restricted to authorized individuals only.</p>
+            <p>Access the Resident's Database here!</p>
             <a href="/security/database/resident" class="btn">Resident Data</a>
         </div>
     </div>
     <div class="card_campus_info card">
-        <div class="info_text">Total No. of People: 100</div>
-        <div class="info_text">Total Residents: 70</div>
-        <div class="info_text">Total Visitors: 30</div>
-        <div class="info_text">Expired Visitors: 4</div>
-        <div class="info_text">Residents Outside Campus: 42</div>
+        <div class="info_text">Total in Campus: <%=total%></div>
+        <div class="info_text">Residents Inside Campus: <%=residents%></div>
+        <div class="info_text">Residents Outside Campus: <%=count_of_outside_residents%></div>
+        <div class="info_text">Visitors Inside Campus: <%=visitors%></div>
+        <div class="info_text">Expired Visitors: <%=exp_visitors%></div>
     </div>
     <div class="card_visitor card" style="width: 23rem;">
         <img src="/images/visitor.png" class="card-img-top visitor image" alt="...">
         <div class="card-body">
             <h5 class="card-title">Visitors</h5>
-            <p class="card-text">Sign up swiftly, receive your QR code, and log your entry into the premises.</p>
+            <p>Access the Resident's Database here!</p>
             <a href="/security/database/visitor" class="btn">Visitor Data</a>
         </div>
     </div>

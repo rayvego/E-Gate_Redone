@@ -54,9 +54,9 @@ body{
     width:100%;
     color: inherit;  /* Inherits color from body */
     font-size: 1.2em;
-    margin: 0;  /* Removed extra margin for grid layout */
+    margin: auto;
     background-color: rgba(0, 0, 0, 0.6); /* Maintains background color for names */
-    padding: 10px;
+    padding: 25px;
     border-radius: 5px;
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
