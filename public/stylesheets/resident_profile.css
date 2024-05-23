@@ -19,6 +19,18 @@
     width: 100%;
 }
 
+.for-logout {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.my-button {
+    width: 10%;
+}
+
 .form-container {
     border-radius: 1rem;
     padding: 2rem;

@@ -1,59 +1,77 @@
-body {
-    background-image: url("../images/background.jpg");
-    background-attachment: fixed;  /* Maintains fixed background */
-    background-size: cover;  /* You can adjust this property as needed */
-    position: relative;
-    font-family: "Comic Sans MS" /* Choose a more suitable font family here */;  /* Replace with desired font */
-    color: #e0e0e0;  /* Changed text color to a light grey */
-}
+/*body {*/
+/*    background-image: url("../images/background.jpg");*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+/*    position: relative;*/
+/*}*/
+
+/*body::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));*/
+/*}*/
+
 .page-container {
-    display: flex;
-    flex-direction: column;  /* Stacks elements vertically */
+    padding: 20px;
 }
 .heading-container {
-    display: flex;
-    justify-content: center;
-    z-index: 1;  /* Added z-index property */
+    margin-bottom: 20px;
+    text-align: center;
+}
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
 }
 
-.heading {
-    /* Existing styles for heading */
-    text-align: center;  /* Centers the text horizontally (redundant here) */
-    font-size: 1.5em;  /* Adjust font size as needed */
-    margin-bottom: 20px;  /* Adds space below the heading */
-    color: white;  /* Assuming you want white text */
-}
+/*.page-container {*/
+/*    display: flex;*/
+/*    flex-direction: column;  !* Stacks elements vertically *!*/
+/*}*/
+/*.heading-container {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    z-index: 1;  !* Added z-index property *!*/
+/*}*/
 
-.namecontainer {
-    /* Existing styles for namecontainer */
-    background-color: transparent; /* Maintains transparent background */
-    backdrop-filter: blur(10px);
-    height: auto;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px;
-    max-width: 500px;  /* Increased width */
-    display: grid;  /* Changed display to grid for multi-column layout */
-    grid-template-columns: repeat(2, 1fr);  /* Creates two columns */
-    grid-gap: 10px;  /* Adds spacing between names */
-    animation: fadeIn 2s ease-in-out;
-    margin: 0 auto; /* Added to center the container horizontally */
-}
+/*.heading {*/
+/*    !* Existing styles for heading *!*/
+/*    text-align: center;  !* Centers the text horizontally (redundant here) *!*/
+/*    font-size: 1.5em;  !* Adjust font size as needed *!*/
+/*    margin-bottom: 20px;  !* Adds space below the heading *!*/
+/*    color: white;  !* Assuming you want white text *!*/
+/*}*/
 
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
+/*.namecontainer {*/
+/*    !* Existing styles for namecontainer *!*/
+/*    background-color: transparent; !* Maintains transparent background *!*/
+/*    backdrop-filter: blur(10px);*/
+/*    height: auto;*/
+/*    padding: 20px;*/
+/*    border-radius: 10px;*/
+/*    margin: 20px;*/
+/*    max-width: 500px;  !* Increased width *!*/
+/*    display: grid;  !* Changed display to grid for multi-column layout *!*/
+/*    grid-template-columns: repeat(2, 1fr);  !* Creates two columns *!*/
+/*    grid-gap: 10px;  !* Adds spacing between names *!*/
+/*    animation: fadeIn 2s ease-in-out;*/
+/*    margin: 0 auto; !* Added to center the container horizontally *!*/
+/*}*/
 
-.person {
-    color: inherit;  /* Inherits color from body */
-    font-size: 1.2em;
-    margin: 0;  /* Removed extra margin for grid layout */
-    background-color: rgba(0, 0, 0, 0.6); /* Maintains background color for names */
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
+/*@keyframes fadeIn {*/
+/*    from {opacity: 0;}*/
+/*    to {opacity: 1;}*/
+/*}*/
 
-
-
+/*.person {*/
+/*    color: inherit;  !* Inherits color from body *!*/
+/*    font-size: 1.2em;*/
+/*    margin: 0;  !* Removed extra margin for grid layout *!*/
+/*    background-color: rgba(0, 0, 0, 0.6); !* Maintains background color for names *!*/
+/*    padding: 10px;*/
+/*    border-radius: 5px;*/
+/*    border: 1px solid rgba(255, 255, 255, 0.3);*/
+/*}*/

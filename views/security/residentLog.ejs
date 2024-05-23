@@ -1,22 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%layout("layouts/boilerplate")%>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus</title>
-    <link rel="stylesheet" href="/stylesheets/residentlog.css">
-</head>
-<body>
+<%layout("layouts/boilerplate")%>
+<link rel="stylesheet" href="/stylesheets/residentlog.css">
+
 <div class="page-container">
     <div class="heading-container">
         <h1 class="heading">Resident Database</h1>
     </div>
-    <div class="namecontainer">
-        <% residentData.forEach(person => { %>
-            <p class="person"><%= person.name%> - <%= person.ic%></p>
-        <% }); %>
+    <div class="table-container">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>IC</th>
+                <th>Phone Number</th>
+                <th>Vehicle Number</th>
+                <th>Entry/Exit</th>
+                <th>Date Time</th>
+                <th>Gate Number</th>
+                <th>SIC</th>
+                <th>Approved</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% residentData.forEach(person => { %>
+                <tr>
+                    <td><%= person.name %></td>
+                    <td><%= person.ic %></td>
+                    <td><%= person.phone_number %></td>
+                    <td><%= person.vehicle_number %></td>
+                    <td><%= person.isEntry ? 'Entering' : 'Exiting' %></td>
+                    <td><%= person.datetime %></td>
+                    <td><%= person.gate_number %></td>
+                    <td><%= person.sic %></td>
+                    <td><%= person.isApproved ? 'Yes' : 'No' %></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
     </div>
 </div>
-</body>
-</html>

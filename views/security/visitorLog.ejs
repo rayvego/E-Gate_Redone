@@ -1,28 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%layout("layouts/boilerplate")%>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visitor Log</title>
-    <link rel="stylesheet" href="/stylesheets/visitorlog.css">
-</head>
-<body>
+<%layout("layouts/boilerplate")%>
+<link rel="stylesheet" href="/stylesheets/visitorlog.css">
 <div class="page-container">
     <div class="heading-container">
         <h1>Visitor Database</h1>
     </div>
-    <div class="namecontainer">
-        <div class="header">
-            <span class="name-heading">Name</span>
-            <span class="exit-time-heading">Exit Date/Time</span>
-        </div>
-        <% campusData.forEach(person => { %>
-            <div class="data-row">
-                <span id = "person" class="name expired"><%= person.name %></span>
-                <span id="personExit" class="exit-time expired"><%= person.exit_time %></span>
-            </div>
-        <% }); %>
+    <div class="table-container">
+        <table class="table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Vehicle Number</th>
+                <th>Concerned With</th>
+                <th>Reason</th>
+                <th>Entry Time</th>
+                <th>Exit Time</th>
+                <th>Tenure</th>
+                <th>Gate Number</th>
+                <th>SIC</th>
+                <th>Approved</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% campusData.forEach(person => { %>
+                <tr class="<%= person.isExpired ? 'expired' : '' %>">
+                    <td><%= person.username %></td>
+                    <td><%= person.name %></td>
+                    <td><%= person.phone_number %></td>
+                    <td><%= person.vehicle_number %></td>
+                    <td><%= person.concerned_with %></td>
+                    <td><%= person.reason %></td>
+                    <td><%= person.entry_time %></td>
+                    <td><%= person.exit_time %></td>
+                    <td><%= person.tenure %></td>
+                    <td><%= person.gate_number %></td>
+                    <td><%= person.sic %></td>
+                    <td><%= person.isApproved ? 'Yes' : 'No' %></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -32,6 +50,3 @@
         location.reload();
     }, 7000);
 </script>
-
-</body>
-</html>

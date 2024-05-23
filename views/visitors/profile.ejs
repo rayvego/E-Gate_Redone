@@ -65,6 +65,12 @@
                 <button type="submit" class="btn">Generate QR</button>
             </div>
         </form>
+            <form action="/visitor/logout">
+                <button class="btn my-button" type="submit">Logout</button>
+            </form>
+            <form action="/visitor/<%=visitor._id%>/deleteAccount?_method=DELETE" method="POST">
+                <button class="btn my-button" type="submit">Delete Account</button>
+            </form>
 
         <%} else {%>
             <div class="qrcode">

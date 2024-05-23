@@ -48,7 +48,7 @@ async function fetchCampusData() {
             const person_exit_formatted = moment(person.exit_time).format('YYYY-MM-DD HH:mm:ss');
             const person_exit = moment(person.exit_time);
             person.isExpired = moment(person_exit).isBefore(formatted_current_date);
-            console.log(person_exit_formatted, " ", formatted_current_date);
+            console.log(person.name, person_exit_formatted, " ", formatted_current_date);
             await person.save();
         }
 

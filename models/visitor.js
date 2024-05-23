@@ -50,6 +50,10 @@ const visitorSchema = new mongoose.Schema({
     },
     isApproved: { // filled by security
         type: Boolean,
+    },
+    isExpired: {
+        type: Boolean,
+        default: true
     }
 })
 

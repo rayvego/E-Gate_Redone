@@ -18,6 +18,7 @@
                 <p class="card-text">Address: <%=resident.address%></p>
             </div>
         </div>
+        <div class="for-logout">
         <div class="form-container">
             <%if (!resident.qrcode) {%>
 
@@ -31,7 +32,12 @@
             </div>
             <%}%>
         </div>
+            <form action="/resident/logout">
+                <button class="btn my-button" type="submit">Logout</button>
+            </form>
+        </div>
     </div>
+
     <% } else {%>
         <h3>Unauthorized Access ❌❌</h3>
     <%}%>

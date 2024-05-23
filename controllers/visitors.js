@@ -80,6 +80,14 @@ module.exports.generateQR = catchAsync (async (req, res) => { // Temporarily rem
     res.redirect(`/visitor/${visitor._id}/profile`)
 })
 
+module.exports.deleteAccount = catchAsync (async (req, res) => {
+    const id = req.session.visitor_id
+    const visitor = await Visitor_Detail.findByIdAndDelete(id)
+    req.session.visitor_id = null
+    req.flash("success", "Account Deleted Successfully!")
+    res.redirect("/visitor/login")
+})
+
 module.exports.logout = (req, res) => {
     req.session.visitor_id = null;
     req.flash("success", "Logged out successfully!");

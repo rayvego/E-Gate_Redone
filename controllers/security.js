@@ -125,7 +125,7 @@ module.exports.showDatabaseHomePage = (req,res) => {
 }
 
 module.exports.showResidentDatabase = catchAsync(async (req,res) =>{
-    const residentData = await Resident_Detail.find({})
+    const residentData = await Resident.find({})
     res.render("security/residentLog", {residentData})
 })
 
@@ -145,7 +145,7 @@ module.exports.set_interval = (req, res, next) => {
 module.exports.showVisitorDatabase = catchAsync(async (req,res) => {
     try {
         // Fetch campus data updated immediately
-        let campusData = await fetch_data();
+        let campusData = await fetch_data(); // returns data variable from visitor database
 
         // Set up interval to fetch data every 5 seconds
         if(!intervalId) {

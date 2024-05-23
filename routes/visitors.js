@@ -16,6 +16,8 @@ router.get("/:id/profile", visitor_logged_in, visitor_routes.showProfile)
 
 router.post("/:id/profile", visitor_logged_in, validateVisitor, visitor_routes.generateQR)
 
+router.delete("/:id/deleteAccount", visitor_logged_in, visitor_routes.deleteAccount)
+
 router.get("/logout", visitor_logged_in, visitor_routes.logout);
 
 module.exports = router
