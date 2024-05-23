@@ -42,7 +42,7 @@ sessionConfig = {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // week
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
-        // secure: true // for https enable when deploying
+        secure: true // for https enable when deploying
     }
 }
 
